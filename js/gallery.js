@@ -73,10 +73,10 @@ function changePictureSize(evt) {
     return;
   }
   const currentSrc = evt.target.dataset.picSrc;
-  const currentPicture = images.find(({ preview }) => preview === currentSrc);
+  const currentPicture = images.find(({ original }) => original === currentSrc);
   const instance = basicLightbox.create(`
-   <div class="modal">
-    <img src="${currentPicture.original}" width="1112" height="640">
+   <div class="modal" style="background-color: rgba(46, 47, 66, 0.8);">
+    <img src="${currentPicture.original}" width="1112" height="640" style="pointer-events: none;"  >
      </div>
 `);
 
@@ -85,8 +85,8 @@ function changePictureSize(evt) {
 
 function createMarkup(pictureList) {
   return pictureList
-    .map(({ preview, description }) => {
-      return `<li class="picture"><img src="${preview}" alt="${description}" data-pic-src="${preview}" width="360" height="200" loading="lazy" class="img"></li>`;
+    .map(({ preview, original, description }) => {
+      return `<li class="picture"><img src="${preview}" alt="${description}" data-pic-src="${original}" width="360" height="200" loading="lazy" class="img"></li>`;
     })
     .join("");
 }
