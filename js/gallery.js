@@ -69,7 +69,8 @@ list.insertAdjacentHTML("afterbegin", createMarkup(images));
 list.addEventListener("click", changePictureSize);
 
 function changePictureSize(evt) {
-  if (evt.currentTarget === evt.target) {
+  evt.preventDefault();
+  if (evt.target.nodeName !== "IMG") {
     return;
   }
   const currentSrc = evt.target.dataset.picSrc;
