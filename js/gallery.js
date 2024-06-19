@@ -65,7 +65,12 @@ const images = [
 ];
 const list = document.querySelector(".gallery");
 
-list.insertAdjacentHTML("afterbegin", createMarkup(images));
+// працює таким чином, або ще працює:
+// list.innerHTML = '';
+
+list.innerHTML = createMarkup(images);
+
+// list.insertAdjacentHTML("afterbegin", createMarkup(images));
 list.addEventListener("click", changePictureSize);
 
 function changePictureSize(evt) {
@@ -87,7 +92,7 @@ function changePictureSize(evt) {
 function createMarkup(pictureList) {
   return pictureList
     .map(({ preview, original, description }) => {
-      return `<li class="picture"><img src="${preview}" alt="${description}" data-pic-src="${original}" width="360" height="200" loading="lazy" class="img"></li>`;
+      return `<li class="gallery-item"><img class="gallery-image" src="${preview}" alt="${description}" data-pic-src="${original}" width="360" height="200" loading="lazy"></li>`;
     })
     .join("");
 }
