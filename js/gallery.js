@@ -65,14 +65,7 @@ const images = [
 ];
 const list = document.querySelector(".gallery");
 
-// 1-й спосіб
-list.innerHTML = createMarkup(images);
-
-// 2-ий спосіб
-// закоментовуємо перший свосіб, та розкоментовуємо два способи нижче
-// list.innerHTML = '';
-
-// list.insertAdjacentHTML("afterbegin", createMarkup(images));
+list.insertAdjacentHTML("afterbegin", createMarkup(images));
 list.addEventListener("click", changePictureSize);
 
 function changePictureSize(evt) {
@@ -80,11 +73,10 @@ function changePictureSize(evt) {
   if (evt.target.nodeName !== "IMG") {
     return;
   }
-  const currentSrc = evt.target.dataset.picSrc;
-  const currentPicture = images.find(({ original }) => original === currentSrc);
+  const currentSrc = evt.target.dataset.source;
   const instance = basicLightbox.create(`
    <div class="modal" style="background-color: rgba(46, 47, 66, 0.8);">
-    <img src="${currentPicture.original}" width="1112" height="640" style="pointer-events: none;"  >
+    <img src="${currentSrc}" width="1112" height="640" style="pointer-events: none;"  >
      </div>
 `);
 
@@ -94,7 +86,21 @@ function changePictureSize(evt) {
 function createMarkup(pictureList) {
   return pictureList
     .map(({ preview, original, description }) => {
-      return `<li class="gallery-item"><img class="gallery-image" src="${preview}" alt="${description}" data-pic-src="${original}" width="360" height="200" loading="lazy"></li>`;
+      return `
+        <li class="gallery-item">
+          <a class="gallery-link" href="${original}">
+            <img
+              class="gallery-image"
+              src="${preview}"
+              data-source="${original}"
+              alt="${description}"
+              width="360"
+              height="200"
+              loading="lazy"
+            />
+          </a>
+        </li>
+      `;
     })
     .join("");
 }
