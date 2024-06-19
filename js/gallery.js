@@ -65,10 +65,12 @@ const images = [
 ];
 const list = document.querySelector(".gallery");
 
-// працює таким чином, або ще працює:
-// list.innerHTML = '';
-
+// 1-й спосіб
 list.innerHTML = createMarkup(images);
+
+// 2-ий спосіб
+// закоментовуємо перший свосіб, та розкоментовуємо два способи нижче
+// list.innerHTML = '';
 
 // list.insertAdjacentHTML("afterbegin", createMarkup(images));
 list.addEventListener("click", changePictureSize);
